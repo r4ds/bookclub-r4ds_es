@@ -71,11 +71,11 @@ Capítulo 8 - Flujo de trabajo: proyectos
 ##### Manejar o domar datos
 Capítulo 9 - Introducción
 
-- Cohorte 1: Luis Francisco Gómez López ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana08/Cohorte01/009_transformar_datos.html) | VIDEO)
+- Cohorte 1: Luis Francisco Gómez López ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana08/Cohorte01/009_transformar_datos.html) | [Video](https://youtu.be/nbzX_fzu84k?t=690))
 
 Capítulo 10 - Tibbles
 
-- Cohorte 1: Luis Francisco Gómez López ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana08/Cohorte01/010_tibbles.html) | VIDEO)
+- Cohorte 1: Luis Francisco Gómez López ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana08/Cohorte01/010_tibbles.html) | [Video](https://youtu.be/nbzX_fzu84k?t=979))
 
 Capítulo 11 - Importación de datos
 
