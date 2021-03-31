@@ -87,4 +87,4 @@ Capítulo 13 - Datos relacionales
 - Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) (DIAPOSITIVAS) | Videos: [Parte 1](https://youtu.be/Uot5PKTyRUY) | [Parte 2](https://youtu.be/H10HTCvObLI))
 
 Capítulo 14 - Cadenas de caracteres
-- Cohorte 1: Luis Francisco Gómez López (DIAPOSITIVAS) | Videos: [Parte 1](https://youtu.be/k-zCaraJbUk) | PARTE 2)
+- Cohorte 1: Luis Francisco Gómez López (DIAPOSITIVAS) | Videos: [Parte 1](https://youtu.be/k-zCaraJbUk) | [Parte 2](https://youtu.be/HYeX6bY3jnI))
