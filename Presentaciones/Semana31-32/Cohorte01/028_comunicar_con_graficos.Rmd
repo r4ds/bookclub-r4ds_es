@@ -1,0 +1,307 @@
+---
+title: "R Markdown"
+subtitle: "R para ciencia de datos<br>Club de lectura<br>Capítulo 28<br>"
+author: "Luis Francisco Gomez Lopez"
+date: "2021-07-15 14:39:05 GMT -05:00"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, 
+        htmltools.preserve.raw = FALSE)
+knitr::opts_chunk$set(echo      = TRUE, 
+                      fig.align = "center")
+```
+
+```{r libraries, include=FALSE}
+library(RefManageR)
+library(tidyverse)
+library(datos)
+library(knitr)
+library(tidyquant)
+library(ggrepel)
+```
+
+```{r load_references, include=FALSE, cache=FALSE}
+RefManageR::BibOptions(
+  check.entries = FALSE,
+  bib.style     = "authoryear",
+  cite.style    = "authoryear",
+  style         = "markdown",
+  hyperlink     = FALSE,
+  dashed        = FALSE
+)
+
+mybib <- RefManageR::ReadBib(file  = "./R_for_data_science.bib",
+                             check = FALSE)
+```
+
+# ¿Qué aprenderás?
+
+En **`r Citet(mybib, "grolemund_r_2019")` Capítulo 28** se abarcará:
+
+- El uso de herramientas utilizando el paquete `ggplot2` para generar buenos gráficos  
+
+    + Etiquetas
+    + Anotaciones
+    + Escalas 
+    + Control de límites
+    + Temas (Themes)
+
+# ¿Qué no aprenderás?
+
+- Los aspectos que se requieren para crear gráficos efectivos
+
+    + Se recominenda consultar `r Citet(mybib, "cairo_truthful_2016")`
+---
+
+# ¿Qué no aprenderás?
+
+- Ejemplos de `r Citet(mybib, "cairo_truthful_2016")`
+
+    + Gráficos engañoso y que utilizan la `geom` incorrecta comparado con un gráfico más adecuado
+
+```{r, echo=FALSE ,out.width="49%", out.height="20%",fig.cap="Cairo (2016) Figuras 2.2, 2.3",fig.show='hold',fig.align='center'}
+knitr::include_graphics(path = c("028_truthful_art_figure2_2.png",
+                                 "028_truthful_art_figure2_3.png"), )
+```
+
+---
+
+# ¿Qué no aprenderás?
+
+- Ejemplos de `r Citet(mybib, "cairo_truthful_2016")`
+
+    + Gráficos que utiliza las escalas de manera adecuada con respecto a otro que las utiliza de manera correcta
+
+```{r, echo=FALSE ,out.width="49%", out.height="20%",fig.cap="Cairo (2016) Figuras 2.4, 2.5",fig.show='hold',fig.align='center'}
+knitr::include_graphics(path = c("028_truthful_art_figure2_4.png",
+                                 "028_truthful_art_figure2_5.png"), )
+```
+
+---
+
+# ¿Qué no aprenderás?
+
+- Ejemplos de `r Citet(mybib, "cairo_truthful_2016")`
+
+    + Comparación entre un gráfico poco estético y otro que si es estético
+
+```{r, echo=FALSE ,out.width="100%", out.height="100%",fig.cap="Cairo (2016) Figura 2.11",fig.show='hold',fig.align='center'}
+knitr::include_graphics(path = c("028_truthful_art_figure2_11.png"))
+```
+
+---
+
+# Gráfico exploratorio
+
+```{r echo=FALSE, fig.retina = 3}
+datos <- filter(datos::paises, anio == 2007) 
+g_exploratorio <- datos %>% 
+  ggplot(aes(pib_per_capita, esperanza_de_vida)) + 
+  geom_point()
+g_exploratorio
+```
+
+---
+
+# Gráfico exploratorio
+
+```{r eval=FALSE}
+datos <- filter(datos::paises, anio == 2007) 
+g_exploratorio <- datos %>% 
+  ggplot(aes(pib_per_capita, esperanza_de_vida)) + 
+  geom_point()
+g_exploratorio
+```
+
+---
+
+# Otros `geoms`
+
+```{r echo=FALSE, fig.retina = 3}
+g_geoms <- datos %>% 
+  ggplot(aes(pib_per_capita, esperanza_de_vida)) + 
+  geom_point(aes(fill = continente, size = poblacion),
+             shape = 21,
+             color = "black")
+g_geoms
+```
+
+---
+
+# Otros `geoms`
+
+```{r eval=FALSE}
+g_geoms <- datos %>% 
+  ggplot(aes(pib_per_capita, esperanza_de_vida)) + 
+  geom_point(aes(fill = continente, size = poblacion), #<<
+             shape = 21,
+             color = "black")
+g_geoms
+```
+
+---
+
+# Escalas
+
+```{r echo=FALSE, fig.retina = 3}
+g_escalas <- g_geoms + 
+  scale_x_log10() + 
+  scale_size_area(breaks = c(1e5, 1e6, 1e7, 1e8, 1e9),
+             labels = scales::number_format(big.mark = ','),
+             max_size = 10) +
+            scale_fill_tq()
+g_escalas
+```
+
+---
+
+# Escalas
+
+```{r eval=FALSE}
+g_escalas <- g_geoms + 
+  scale_x_log10() + #<<
+  scale_size_area(breaks = c(1e5, 1e6, 1e7, 1e8, 1e9), #<<
+             labels = scales::number_format(big.mark = ','),
+             max_size = 10) +
+            tidyquant::scale_fill_tq() #<<
+g_escalas
+```
+
+---
+
+# Anotaciones
+
+```{r echo=FALSE, fig.retina = 3}
+g_anotacion <- g_escalas + 
+  geom_label_repel(data = filter(datos, pais %in% c("Colombia", "Costa Rica", "Reino Unido")),
+                   aes(label = pais),
+                   box.padding = 1, 
+                   max.overlaps = Inf,
+                   force = 3)
+g_anotacion
+```
+
+---
+
+# Anotaciones
+
+```{r eval=FALSE}
+g_anotacion <- g_escalas + 
+  geom_label_repel(data = filter(datos, #<<
+                                 pais %in% c("Colombia",
+                                             "Costa Rica",
+                                             "Reino Unido")),
+                   aes(label = pais),
+                   box.padding = 1, 
+                   max.overlaps = Inf,
+                   force = 3)
+g_anotacion
+```
+
+---
+
+# Etiquetas
+
+```{r echo=FALSE, fig.retina = 3}
+g_etiqueta <- g_anotacion +
+  labs(x = "PIB per cápita (USD, ajustados por inflación)",
+     y = "Esperanza de vida al nacer (años)",
+     title = str_glue("A medida que aumenta el ingreso promedio de los países aumenta la 
+       esperanza de vida al nacer dado que los individuos pueden acceder a 
+       mejores bienes y servicios de salud, alimentación y educación"),
+     subtitle = str_glue("Periodo: año {unique(datos$anio)}
+                           Número de países: {length(datos$pais)}"),
+     caption = "Fuente: http://www.gapminder.org/data/",
+     fill = "Continente",
+     size = "Población")
+g_etiqueta
+```
+
+---
+
+# Etiquetas
+
+```{r eval=FALSE}
+g_etiqueta <- g_anotacion +
+  labs(x = "PIB per cápita (USD, ajustados por inflación)", #<<
+     y = "Esperanza de vida al nacer (años)",
+     title = str_glue("A medida que aumenta el ingreso promedio de los países aumenta la 
+       esperanza de vida al nacer dado que los individuos pueden acceder a 
+       mejores bienes y servicios de salud, alimentación y educación"),
+     subtitle = str_glue("Periodo: año {unique(datos$anio)}
+                           Número de países: {length(datos$pais)}"),
+     caption = "Fuente: http://www.gapminder.org/data/",
+     fill = "Continente",
+     size = "Población")
+g_etiqueta
+```
+
+---
+
+# Temas (themes)
+
+```{r echo=FALSE, fig.retina = 3}
+g_etiqueta + 
+  theme(legend.position = 'right',
+        panel.border    = element_rect(fill = NA, 
+                                       color = "black"),
+        plot.background   = element_rect(fill = "#f3fcfc"),   
+        panel.background  = element_rect(fill = "#f3f7fc"),
+        legend.background = element_rect(fill = "#f3fcfc"),
+        plot.title        = element_text(face = "bold"),
+        axis.title        = element_text(face = "bold"),
+        legend.title      = element_text(face = "bold"),
+        axis.text         = element_text(face = "bold"),
+        legend.text       = element_text(face = "bold"))
+```
+
+---
+
+# Temas (themes)
+
+```{r eval=FALSE}
+g_etiqueta + 
+            theme(legend.position   = 'right', #<<
+                  panel.border      = element_rect(fill = NA, 
+                                                   color = "black"),
+                  plot.background   = element_rect(fill = "#f3fcfc"),          
+                  panel.background  = element_rect(fill = "#f3f7fc"),
+                  legend.background = element_rect(fill = "#f3fcfc"), 
+                  plot.title        = element_text(face = "bold"),
+                  axis.title        = element_text(face = "bold"),
+                  legend.title      = element_text(face = "bold"),
+                  axis.text         = element_text(face = "bold"),
+                  legend.text       = element_text(face = "bold"))
+```
+
+---
+
+# Aprender más 
+
+- `r Citet(mybib, "wickham_ggplot2_2021")`
+
+    + Gramática de gráficas que usa `ggplot2`
+    
+- `r Citet(mybib, "chang_r_2021")`
+
+    + Diferentes "recetas" para realizar ciertos tipos de gráficas
+
+- https://exts.ggplot2.tidyverse.org > Gallery
+
+    + Extensiones `ggplot2` para ampliar la funcionalidad de este paquete
+    
+---
+
+# Referencias
+
+```{r refs, echo=FALSE, results='asis'}
+RefManageR::PrintBibliography(bib = mybib)
+```
