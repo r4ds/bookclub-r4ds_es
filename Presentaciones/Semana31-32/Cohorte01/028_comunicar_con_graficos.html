@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R Markdown</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Luis Francisco Gomez Lopez" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# R Markdown
+## R para ciencia de datos<br>Club de lectura<br>Capítulo 28<br>
+### Luis Francisco Gomez Lopez
+### 2021-07-15 14:39:05 GMT -05:00
+
+---
+
+
+
+
+
+
+
+
+# ¿Qué aprenderás?
+
+En **Grolemund and Wickham (2019) Capítulo 28** se abarcará:
+
+- El uso de herramientas utilizando el paquete `ggplot2` para generar buenos gráficos  
+
+    + Etiquetas
+    + Anotaciones
+    + Escalas 
+    + Control de límites
+    + Temas (Themes)
+
+# ¿Qué no aprenderás?
+
+- Los aspectos que se requieren para crear gráficos efectivos
+
+    + Se recominenda consultar Cairo (2016)
+---
+
+# ¿Qué no aprenderás?
+
+- Ejemplos de Cairo (2016)
+
+    + Gráficos engañoso y que utilizan la `geom` incorrecta comparado con un gráfico más adecuado
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="028_truthful_art_figure2_2.png" alt="Cairo (2016) Figuras 2.2, 2.3" width="49%" height="20%" /&gt;&lt;img src="028_truthful_art_figure2_3.png" alt="Cairo (2016) Figuras 2.2, 2.3" width="49%" height="20%" /&gt;
+&lt;p class="caption"&gt;Cairo (2016) Figuras 2.2, 2.3&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# ¿Qué no aprenderás?
+
+- Ejemplos de Cairo (2016)
+
+    + Gráficos que utiliza las escalas de manera adecuada con respecto a otro que las utiliza de manera correcta
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="028_truthful_art_figure2_4.png" alt="Cairo (2016) Figuras 2.4, 2.5" width="49%" height="20%" /&gt;&lt;img src="028_truthful_art_figure2_5.png" alt="Cairo (2016) Figuras 2.4, 2.5" width="49%" height="20%" /&gt;
+&lt;p class="caption"&gt;Cairo (2016) Figuras 2.4, 2.5&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# ¿Qué no aprenderás?
+
+- Ejemplos de Cairo (2016)
+
+    + Comparación entre un gráfico poco estético y otro que si es estético
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="028_truthful_art_figure2_11.png" alt="Cairo (2016) Figura 2.11" width="100%" height="100%" /&gt;
+&lt;p class="caption"&gt;Cairo (2016) Figura 2.11&lt;/p&gt;
+&lt;/div&gt;
+
+---
+
+# Gráfico exploratorio
+
+&lt;img src="028_comunicar_con_graficos_files/figure-html/unnamed-chunk-4-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Gráfico exploratorio
+
+
+```r
+datos &lt;- filter(datos::paises, anio == 2007) 
+g_exploratorio &lt;- datos %&gt;% 
+  ggplot(aes(pib_per_capita, esperanza_de_vida)) + 
+  geom_point()
+g_exploratorio
+```
+
+---
+
+# Otros `geoms`
+
+&lt;img src="028_comunicar_con_graficos_files/figure-html/unnamed-chunk-6-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Otros `geoms`
+
+
+```r
+g_geoms &lt;- datos %&gt;% 
+  ggplot(aes(pib_per_capita, esperanza_de_vida)) + 
+* geom_point(aes(fill = continente, size = poblacion),
+             shape = 21,
+             color = "black")
+g_geoms
+```
+
+---
+
+# Escalas
+
+&lt;img src="028_comunicar_con_graficos_files/figure-html/unnamed-chunk-8-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Escalas
+
+
+```r
+g_escalas &lt;- g_geoms + 
+* scale_x_log10() +
+* scale_size_area(breaks = c(1e5, 1e6, 1e7, 1e8, 1e9),
+             labels = scales::number_format(big.mark = ','),
+             max_size = 10) +
+*           tidyquant::scale_fill_tq()
+g_escalas
+```
+
+---
+
+# Anotaciones
+
+&lt;img src="028_comunicar_con_graficos_files/figure-html/unnamed-chunk-10-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Anotaciones
+
+
+```r
+g_anotacion &lt;- g_escalas + 
+* geom_label_repel(data = filter(datos,
+                                 pais %in% c("Colombia",
+                                             "Costa Rica",
+                                             "Reino Unido")),
+                   aes(label = pais),
+                   box.padding = 1, 
+                   max.overlaps = Inf,
+                   force = 3)
+g_anotacion
+```
+
+---
+
+# Etiquetas
+
+&lt;img src="028_comunicar_con_graficos_files/figure-html/unnamed-chunk-12-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Etiquetas
+
+
+```r
+g_etiqueta &lt;- g_anotacion +
+* labs(x = "PIB per cápita (USD, ajustados por inflación)",
+     y = "Esperanza de vida al nacer (años)",
+     title = str_glue("A medida que aumenta el ingreso promedio de los países aumenta la 
+       esperanza de vida al nacer dado que los individuos pueden acceder a 
+       mejores bienes y servicios de salud, alimentación y educación"),
+     subtitle = str_glue("Periodo: año {unique(datos$anio)}
+                           Número de países: {length(datos$pais)}"),
+     caption = "Fuente: http://www.gapminder.org/data/",
+     fill = "Continente",
+     size = "Población")
+g_etiqueta
+```
+
+---
+
+# Temas (themes)
+
+&lt;img src="028_comunicar_con_graficos_files/figure-html/unnamed-chunk-14-1.png" width="504" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Temas (themes)
+
+
+```r
+g_etiqueta + 
+*           theme(legend.position   = 'right',
+                  panel.border      = element_rect(fill = NA, 
+                                                   color = "black"),
+                  plot.background   = element_rect(fill = "#f3fcfc"),          
+                  panel.background  = element_rect(fill = "#f3f7fc"),
+                  legend.background = element_rect(fill = "#f3fcfc"), 
+                  plot.title        = element_text(face = "bold"),
+                  axis.title        = element_text(face = "bold"),
+                  legend.title      = element_text(face = "bold"),
+                  axis.text         = element_text(face = "bold"),
+                  legend.text       = element_text(face = "bold"))
+```
+
+---
+
+# Aprender más 
+
+- Wickham, Navarro, and Lin Pedersen (2021)
+
+    + Gramática de gráficas que usa `ggplot2`
+    
+- Chang (2021)
+
+    + Diferentes "recetas" para realizar ciertos tipos de gráficas
+
+- https://exts.ggplot2.tidyverse.org &gt; Gallery
+
+    + Extensiones `ggplot2` para ampliar la funcionalidad de este paquete
+    
+---
+
+# Referencias
+
+Cairo, A. (2016). _The truthful art: data, charts, and maps for
+communication_. OCLC: ocn941982960. Place of publication not
+identified: New Riders. ISBN: 978-0-321-93407-9.
+
+Chang, W. (2021). _R Graphics Cookbook, 2nd edition_. URL:
+[https://r-graphics.org](https://r-graphics.org) (visited on Jul. 22,
+2021).
+
+Grolemund, G. and H. Wickham (2019). _R para Ciencia de Datos_. URL:
+[http://es.r4ds.hadley.nz/](http://es.r4ds.hadley.nz/) (visited on Jan.
+06, 2021).
+
+Wickham, H., D. Navarro, and T. Lin Pedersen (2021). _ggplot2: elegant
+graphics for data analysis_. URL:
+[https://ggplot2-book.org/](https://ggplot2-book.org/).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
