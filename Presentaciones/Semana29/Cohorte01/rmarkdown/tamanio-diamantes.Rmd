@@ -1,0 +1,137 @@
+---
+title: "Tamaño de los diamantes"
+date: 2016-08-25
+output: html_document
+params:
+  quilate : 2.5
+  color : 'azul'
+  brillo: 'poco'
+  calidad : 'muy mala'
+---
+
+```{r setup, include = FALSE}
+library(datos)
+library(ggplot2)
+library(dplyr)
+
+pequenios <- diamantes %>%
+  filter(quilate <= params$quilate)
+
+knitr::opts_chunk$set(
+  fig.path = "man/figures/tamanio-diamantes-"
+)
+```
+
+Tenemos datos respecto de `r nrow(diamantes)` diamantes. Únicamente 
+`r nrow(diamantes) - nrow(pequenios)` son mayores a `r params$quilate` quilates. 
+La distribución de los diamantes pequeños se muestra a continuación:
+
+$y = mx + b$
+
+$\alpha$, $\beta$
+
+```{r distribucion-diamantes-pequenios, echo = FALSE}
+pequenios %>%
+  ggplot(aes(quilate)) +
+  geom_freqpoly(binwidth = 0.01)
+```
+
+
+
+
+Formato de texto
+------------------------------------------------------------
+
+*cursiva*   o _cursiva_
+**negrita**   __negrita__
+`code`
+superíndice^2^ y subíndice~2~
+
+Encabezados
+------------------------------------------------------------
+
+# Encabezado de primer nivel
+
+## Encabezado de segundo nivel
+
+### Encabezado de tercer nivel
+
+Listas
+------------------------------------------------------------
+
+*   Elemento 1 en lista no enumerada
+
+*   Elemento 2
+
+    * Elemento 2a
+
+    * Elemento 2b
+
+1.  Elemento 1 en lista enumerada
+
+3.  Elemento 2. La numeración se incrementa automáticamente en el output.
+
+Enlaces e imágenes
+------------------------------------------------------------
+
+<http://ejemplo.com>
+
+[texto del enlace](http://ejemplo.com)
+
+<!-- ![pie de página opcional](ruta/de/la/imagen.png) -->
+
+Tablas 
+------------------------------------------------------------
+
+Primer encabezado     | Segundo encabezado
+--------------------- | ---------------------
+Contenido de la celda | Contenido de la celda
+Contenido de la celda | Contenido de la celda
+
+
+```{r}
+a <- 5
+```
+
+
+```{r, cache = TRUE}
+a <- a + 2
+```
+
+```{r}
+print(a)
+```
+
+## Cargar los archivos
+
+```{r, eval = FALSE}
+a <- readr::read_csv("/ruta/a/el/archivo/a.csv")
+knitr::kable(a)
+```
+
+```{r, echo = FALSE}
+a <- tibble::tibble(x = 1:10,
+                    y = x ^ 2)
+
+readr::write_csv(a, "~/Downloads/a.csv")
+a <- readr::read_csv("~/Downloads/a.csv")
+knitr::kable(a)
+```
+
+
+```{r, include = FALSE}
+a <- tibble::tibble(x = 1:10,
+                    y = x ^ 2)
+
+readr::write_csv(a, "~/Downloads/a.csv")
+a <- readr::read_csv("~/Downloads/a.csv")
+knitr::kable(a)
+```
+
+
+```{r, error = TRUE}
+b <- 1
+b + a
+```
+
+
