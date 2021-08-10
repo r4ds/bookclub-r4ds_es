@@ -1,0 +1,25 @@
+---
+title: Multiple formatos de salida
+author: Roberto Villegas-Diaz
+output:
+  word_document: default
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+  pdf_document: default
+  odt_document: default
+  rtf_document: default
+  md_document: default
+  github_document: default
+---
+
+
+Este es un documento de prueba.
+
+```{r}
+`%>%` <- magrittr::`%>%`
+tibble::tibble(x = 1:100,
+               y = x ^2) %>%
+  knitr::kable()
+```

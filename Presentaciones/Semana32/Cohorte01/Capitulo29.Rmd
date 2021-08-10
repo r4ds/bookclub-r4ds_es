@@ -1,0 +1,146 @@
+---
+title: "R para Ciencia de Datos"
+subtitle: "Capítulo 29: Formatos de R Markdown"
+author: "Roberto Villegas-Diaz (GH: villegar)"
+date: 2021-08-10
+output:
+  xaringan::moon_reader:
+    nature:
+      highlightLines: true
+      beforeInit: macros.js
+    lib_dir: libs
+    css: xaringan-themer.css
+    includes:
+      after_body: insertar-r4ds-es-logo.html
+---
+
+
+```{r xaringan-themer, include = FALSE}
+xaringanthemer::style_mono_light(
+  base_color = "#0099D8",#"#3092FF",
+  header_font_google = xaringanthemer::google_font("Josefin Sans"),
+  text_font_google   = xaringanthemer::google_font("Montserrat", "300", "300i"),
+  code_font_google   = xaringanthemer::google_font("Droid Mono")
+)
+```
+
+## Contenidos
+
+* 29.1 Introducción
+
+* 29.2 Opciones de salida
+
+* 29.3 Documentos
+
+* 29.4 Notebooks
+
+* 29.5 Presentaciones
+
+* 29.6 Dashboards
+
+* 29.7 Interactividad
+
+* 29.8 Sitios Web
+
+* 29.9 Otros Formatos
+
+* 29.10 Aprende más
+
+---
+
+## Introducción
+
+Hay dos maneras de definir el output de un documento:
+
+1. De forma permanente, modificando el encabezado YAML
+
+2. De forma transitoria, llamando `rmarkdown::render()` directamente
+
+--
+
+.center[
+![:escala 0.5](https://es.r4ds.hadley.nz/screenshots/rmarkdown-knit.png)
+]
+---
+
+## Opciones de salida
+
+>  Es importante conocer el nombre de la función que genera el documento de salida, porque así es como obtienes ayuda.
+
+
+```
+output:
+  html_document:
+    toc: true
+    toc_float: true
+  pdf_document: default
+```
+
+---
+
+## Documentos
+
+- `pdf_document` crea un PDF con LaTeX (un sistema de código abierto de composición de textos), que necesitarás instalar. RStudio te notificará si no lo tienes.
+
+- `word_document` para documentos de Microsoft Word (.docx).
+
+- `odt_document` para documentos de texto OpenDocument (.odt).
+
+- `rtf_document` para documentos de Formato de Texto Enriquecido (.rtf).
+
+- `md_document` para documentos Markdown. Típicamente no es muy útil en sí mismo, pero puedes usarlo si, por ejemplo, tu CMS corporativo o tu wiki de laboratorio usa markdown.
+
+- `github_document`: esta es una versión de md_document específicamente diseñada para compartir en GitHub.
+
+---
+
+## Notebooks
+
+> Ambas contendrán todo el output renderizado, pero el notebook también contendrá el __código fuente completo__.
+
+--
+
+Un notebook (formato `.nb.html`):
+
+- puede verse en el navegador web
+
+- puede ser editado en RStudio.
+
+> RStudio automáticamente recreará el archivo .Rmd que lo creó.
+
+---
+
+## Presentaciones
+
+1. `ioslides_presentation` - Presentación HTML con ioslides.
+
+2. `slidy_presentation` - Presentación HTML con W3C Slidy.
+
+3. `beamer_presentation` - Presentación PDF con LaTeX Beamer.
+
+---
+
+## Dashboards
+
+---
+
+## Interactividad
+
+---
+
+## Sitios Web
+
+---
+
+## Otros Formatos
+
+---
+
+## Aprende más
+
+---
+
+class: center, inverse, middle
+
+# ¿Preguntas?
+

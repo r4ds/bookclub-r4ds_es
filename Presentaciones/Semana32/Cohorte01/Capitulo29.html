@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>R para Ciencia de Datos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Roberto Villegas-Diaz (GH: villegar)" />
+    <meta name="date" content="2021-08-10" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# R para Ciencia de Datos
+## Capítulo 29: Formatos de R Markdown
+### Roberto Villegas-Diaz (GH: villegar)
+### 2021-08-10
+
+---
+
+
+
+
+
+## Contenidos
+
+* 29.1 Introducción
+
+* 29.2 Opciones de salida
+
+* 29.3 Documentos
+
+* 29.4 Notebooks
+
+* 29.5 Presentaciones
+
+* 29.6 Dashboards
+
+* 29.7 Interactividad
+
+* 29.8 Sitios Web
+
+* 29.9 Otros Formatos
+
+* 29.10 Aprende más
+
+---
+
+## Introducción
+
+Hay dos maneras de definir el output de un documento:
+
+1. De forma permanente, modificando el encabezado YAML
+
+2. De forma transitoria, llamando `rmarkdown::render()` directamente
+
+--
+
+.center[
+![:escala 0.5](https://es.r4ds.hadley.nz/screenshots/rmarkdown-knit.png)
+]
+---
+
+## Opciones de salida
+
+&gt;  Es importante conocer el nombre de la función que genera el documento de salida, porque así es como obtienes ayuda.
+
+
+```
+output:
+  html_document:
+    toc: true
+    toc_float: true
+  pdf_document: default
+```
+
+---
+
+## Documentos
+
+- `pdf_document` crea un PDF con LaTeX (un sistema de código abierto de composición de textos), que necesitarás instalar. RStudio te notificará si no lo tienes.
+
+- `word_document` para documentos de Microsoft Word (.docx).
+
+- `odt_document` para documentos de texto OpenDocument (.odt).
+
+- `rtf_document` para documentos de Formato de Texto Enriquecido (.rtf).
+
+- `md_document` para documentos Markdown. Típicamente no es muy útil en sí mismo, pero puedes usarlo si, por ejemplo, tu CMS corporativo o tu wiki de laboratorio usa markdown.
+
+- `github_document`: esta es una versión de md_document específicamente diseñada para compartir en GitHub.
+
+---
+
+## Notebooks
+
+&gt; Ambas contendrán todo el output renderizado, pero el notebook también contendrá el __código fuente completo__.
+
+--
+
+Un notebook (formato `.nb.html`):
+
+- puede verse en el navegador web
+
+- puede ser editado en RStudio.
+
+&gt; RStudio automáticamente recreará el archivo .Rmd que lo creó.
+
+---
+
+## Presentaciones
+
+1. `ioslides_presentation` - Presentación HTML con ioslides.
+
+2. `slidy_presentation` - Presentación HTML con W3C Slidy.
+
+3. `beamer_presentation` - Presentación PDF con LaTeX Beamer.
+
+---
+
+## Dashboards
+
+---
+
+## Interactividad
+
+---
+
+## Sitios Web
+
+---
+
+## Otros Formatos
+
+---
+
+## Aprende más
+
+---
+
+class: center, inverse, middle
+
+# ¿Preguntas?
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(https://es.r4ds.hadley.nz/hex_r4ds-es.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 110px;
+  height: 128px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
