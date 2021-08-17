@@ -1,0 +1,402 @@
+---
+title: "R para Ciencia de Datos"
+subtitle: "Introducción a SQL y dbplyr"
+author: "Roberto Villegas-Diaz (GH: villegar)"
+date: 2021-08-17
+output:
+  xaringan::moon_reader:
+    nature:
+      highlightLines: true
+      beforeInit: macros.js
+    lib_dir: libs
+    css: xaringan-themer.css
+    includes:
+      after_body: insertar-r4ds-es-logo.html
+---
+
+
+```{r xaringan-themer, include = FALSE}
+xaringanthemer::style_mono_light(
+  base_color = "#0099D8",#"#3092FF",
+  header_font_google = xaringanthemer::google_font("Josefin Sans"),
+  text_font_google   = xaringanthemer::google_font("Montserrat", "300", "300i"),
+  code_font_google   = xaringanthemer::google_font("Droid Mono")
+)
+```
+## Configuración
+Para este tutorial vamos a usar dos paquetes:
+
+- `dbplyr`: Este paquete provee verbos similares a `dplyr` pero para ser usados con conexiones a base de datos.
+
+- `RSQLite`: Este paquete permite conectarse a una base de datos SQLite. 
+
+Existen otros paquetes para servidores de base de datos populares, como `RMySQL` para MySQL y `RPostgres` para PostgreSQL.
+
+--
+
+Para instalarlos:
+```{r, eval = FALSE}
+install.packages(c("dbplyr", "RSQLite"))
+```
+
+--
+
+Los datos a ser usados en este tutorial pueden ser descargados desde: https://figshare.com/articles/dataset/Portal_Project_Teaching_Database/1314459 "portal_mammals.sqlite".
+
+```r
+dir.create("data_raw", showWarnings = FALSE)
+download.file(url = "https://ndownloader.figshare.com/files/2292171",
+              destfile = "data_raw/portal_mammals.sqlite", mode = "wb")
+```
+
+---
+
+## SQL 101
+
+SQL: Structured Query Language / Lenguaje de consulta estructurada
+
+--
+
+El paquete `dplyr` con sus verbos usa una notación muy similar a SQL.
+
+- `dplyr`
+
+```r
+animales %>%
+  dplyr::select(dplyr::everything())
+```
+
+- SQL
+
+```sql
+SELECT * FROM animales;
+```
+
+---
+
+## SQL 101 (2)
+
+- `dplyr`
+
+```r
+animales %>%
+  dplyr::select(dplyr::everything()) %>%
+  dplyr::filter(tipo == "volador")
+```
+
+- SQL
+
+```sql
+SELECT * FROM animales WHERE tipo = "volador";
+```
+
+--
+
+- `dplyr`
+
+```r
+animales %>%
+  dplyr::select(dplyr::everything()) %>%
+  dplyr::filter(tipo %in% c("terrestre", "volador"))
+```
+
+- SQL
+
+```sql
+SELECT * FROM animales WHERE tipo IN ("terrestre", "volador");
+```
+
+---
+
+## SQL 101 (3)
+
+- `dplyr`
+
+```r
+animales %>%
+  dplyr::select(dplyr::everything()) %>%
+  dplyr::filter(tamano > 0.5, tamano < 1) # Tamaño en metros
+```
+
+- SQL
+
+```sql
+SELECT * FROM animales WHERE tamano BETWEEN 0.5 AND 1;
+```
+
+---
+
+## SQL 101 (4)
+
+- `dplyr`
+
+```r
+animales %>%
+  dplyr::select(dplyr::everything()) %>%
+  dplyr::filter(tamano > 0.5, tamano < 1) %>% # Tamaño en metros
+  dplyr::left_join(habitat, by = "tipo")
+```
+
+- SQL
+
+```sql
+(SELECT * FROM animales WHERE tamano BETWEEN 0.5 AND 1) 
+INNER JOIN habitat ON animales.tipo = habitat.tipo;
+```
+
+Alternativamente,
+```sql
+SELECT * FROM animales 
+INNER JOIN habitat ON animales.tipo = habitat.tipo 
+WHERE tamano BETWEEN 0.5 AND 1;
+```
+
+
+---
+
+## SQLite
+
+- Serverless
+- Single file database
+- Zero Configuration
+- Cross-Platform
+- Self-Contained
+
+
+.footnote[
+Para detalles sobre aplicaciones: https://www.sqlite.org/whentouse.html
+]
+
+
+---
+
+## Mamíferos / Mammals
+
+```{r, message = FALSE}
+library(dplyr)
+library(dbplyr)
+```
+
+```{r}
+mammals <- DBI::dbConnect(RSQLite::SQLite(),
+                          "data_raw/portal_mammals.sqlite")
+```
+
+--
+
+```{r}
+src_dbi(mammals)
+```
+
+---
+
+## Mamíferos / Mammals (2)
+
+- SQL
+```{r}
+tbl(mammals, sql("SELECT year, species_id, plot_id FROM surveys"))
+```
+
+---
+
+## Mamíferos / Mammals (3)
+
+- `dbplyr`
+
+```{r}
+surveys <- tbl(mammals, "surveys")
+surveys %>%
+    select(year, species_id, plot_id)
+```
+
+---
+
+## Mamíferos / Mammals (4)
+
+```{r}
+head(surveys, n = 10)
+```
+
+---
+
+## Mamíferos / Mammals (5)
+
+Una diferencia muy importante:
+
+```{r}
+ncol(surveys)
+nrow(surveys)
+```
+
+.center[
+![:escala 50%](https://i.kym-cdn.com/photos/images/newsfeed/000/750/931/1e6)
+]
+
+---
+
+## Mamíferos / Mammals (6)
+
+```{r}
+show_query(head(surveys, n = 10))
+```
+
+---
+
+## Mamíferos / Mammals (7)
+
+
+```{r}
+surveys %>%
+  filter(weight < 5) %>%
+  select(species_id, sex, weight)
+```
+
+
+---
+
+## Mamíferos / Mammals (8)
+### Evaluación perezosa
+
+```{r}
+data_subset <- surveys %>%
+  filter(weight < 5) %>%
+  select(species_id, sex, weight)
+
+data_subset %>%
+  select(-sex)
+```
+
+
+---
+
+## Mamíferos / Mammals (9)
+### Evaluación perezosa (2)
+```{r}
+data_subset <- surveys %>%
+  filter(weight < 5) %>%
+  select(species_id, sex, weight) %>%
+  collect()
+```
+
+---
+
+## Mamíferos / Mammals (10)
+
+```{r}
+plots <- tbl(mammals, "plots")
+plots
+```
+
+---
+
+## Mamíferos / Mammals (11)
+
+```{r}
+plots %>%
+  filter(plot_id == 1) %>%
+  inner_join(surveys) %>%
+  collect()
+```
+
+---
+
+### Desafío
+
+> Crea una consulta que regrese el número de roedores (_rodents_) observados en cada espacio (_plot_) para cada año.
+
+--
+
+```{r}
+species <- tbl(mammals, "species")
+
+left_join(surveys, species) %>%
+  filter(taxa == "Rodent") %>%
+  group_by(taxa, year, plot_id) %>%
+  tally() %>%
+  collect()
+```
+
+---
+
+### Desafío (2)
+
+> Crea una consulta que regrese el número total de roedores (_rodents_) en cada género (_genus_) capturados en los diferentes espacios (_plot_).
+
+--
+
+```{r}
+species <- tbl(mammals, "species")
+
+left_join(surveys, plots) %>%
+  left_join(species) %>%
+  filter(taxa == "Rodent") %>%
+  group_by(plot_type, genus) %>%
+  tally() %>%
+  collect()
+```
+
+
+---
+
+## Creando una base de datos
+
+```{r, message = FALSE, output = FALSE}
+download.file("https://ndownloader.figshare.com/files/3299483",
+              "data_raw/species.csv")
+download.file("https://ndownloader.figshare.com/files/10717177",
+              "data_raw/surveys.csv")
+download.file("https://ndownloader.figshare.com/files/3299474",
+              "data_raw/plots.csv")
+
+library(tidyverse)
+species <- read_csv("data_raw/species.csv")
+dim(species)
+surveys <- read_csv("data_raw/surveys.csv")
+dim(surveys)
+plots <- read_csv("data_raw/plots.csv")
+dim(plots)
+```
+
+---
+
+## Creando una base de datos (2)
+```{r}
+my_db_file <- "data/portal-database-output.sqlite"
+my_db <- DBI::dbConnect(RSQLite::SQLite(),
+                        my_db_file, 
+                        overwrite = TRUE)
+```
+
+```{r}
+DBI::dbWriteTable(my_db, "surveys",  surveys, overwrite = TRUE)
+DBI::dbWriteTable(my_db, "plots", plots, overwrite = TRUE)
+DBI::dbWriteTable(my_db, "species", species, overwrite = TRUE)
+DBI::dbDisconnect(my_db)
+```
+
+---
+
+## Creando una base de datos (3)
+
+```{r}
+mammals <- DBI::dbConnect(RSQLite::SQLite(),
+                          my_db_file)
+src_dbi(mammals)
+DBI::dbDisconnect(mammals)
+```
+
+---
+class: center, inverse, middle
+
+
+# ¿Preguntas?
+
+
+---
+
+## Referencias
+
+- Data Carpentry. "Data Management with SQL for Ecologists": https://datacarpentry.org/sql-ecology-lesson/
+
+- José Juan Sánchez Hernández. "Unidad Didáctica 4. Creación de bases de datos en SQLite": https://josejuansanchez.org/bd/unidad-04-sqlite/index.html
+
