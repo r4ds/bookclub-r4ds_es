@@ -20,13 +20,8 @@ Este repositorio tiene 3 directorios principales:
 
 *Cohorte 1 - (comenzó el 2020-12-22) - Todos los Martes, 5pm C(D)T* / 11pm BST
 
-- 
-
 <details>
   <summary> Reuniones futuras </summary>
-  
-- 2021-05-04 - Capítulo 20 - Vectores
-- 2021-05-11 - Capítulo 21 - Iteración
 
 </details>
 <hr>
@@ -115,4 +110,53 @@ Capítulo 19 - Funciones
 
 Capítulo 20 - Vectores
 
-- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana20-21/Cohorte01/Capitulo20.html) | Videos: [Parte 1](https://youtu.be/xVU9xTYrPlY) | PARTE 2)
+- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana20-21/Cohorte01/Capitulo20.html) | Videos: [Parte 1](https://youtu.be/xVU9xTYrPlY) | [Parte 2](https://youtu.be/F8gPRacrJC0))
+
+Capítulo 21 - Iteración
+
+- Cohorte 1: Luis Francisco Gómez López ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana22-23/Cohorte01/021_iteraciones.html) / [Ejercicios](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana22-23/Cohorte01/021_ejercicios.R) | Videos: [Parte 1](https://youtu.be/wouFWqMzAyA) | [Parte 2](https://youtu.be/8VSqhkP1z-A))
+
+
+##### Modelar
+
+Capítulo 22 - Introducción
+
+- Cohorte 1: Luis Francisco Gómez López ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana24-25/Cohorte01/022_modelar_introduccion.html) | [Video](https://youtu.be/EnHoVzJJ02c))
+
+Capítulo 23 - Modelos: conceptos básicos
+
+- Cohorte 1: Luis Francisco Gómez López ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana24-25/Cohorte01/023_modelos_conceptos_basicos.html) / [Ejercicios](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana24-25/Cohorte01/023_ejercicios.R) | Videos: [Parte 1](https://youtu.be/EnHoVzJJ02c?t=312) | [Parte 2](https://youtu.be/HjFakQsuc9Y))
+
+
+Capítulo 24 - Construcción de modelos
+
+- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana26-27/Cohorte01/Capitulo24.html) | Videos: [Parte 1](https://youtu.be/aC867JMHbOk) | [Parte 2](https://youtu.be/qEk8ioIu6o4))
+
+Capítulo 25 - Muchos modelos
+
+- Cohorte 1: Luis Francisco Gómez López ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana28/Cohorte01/025_muchos_modelos.html) / [Ejercicios](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana28/Cohorte01/025_ejercicios.R) | [Video](https://youtu.be/EUyNA1fVZto))
+
+
+##### Comunicar
+
+Capítulo 26 - Introducción
+
+- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana29/Cohorte01/Capitulo26.html) | [Video](https://youtu.be/dwIVJDP0IOk))
+
+Capítulo 27 - R Markdown
+
+- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana29/Cohorte01/Capitulo27.html) | Videos: [Parte 1](https://youtu.be/dwIVJDP0IOk?t=216) | [Parte 2](https://youtu.be/38VZoYe3a34))
+
+Capítulo 28 - Comunicar con gráficos
+
+- Cohorte 1: Luis Francisco Gómez López ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana31/Cohorte01/028_comunicar_con_graficos.html) / [Ejercicios](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana31/Cohorte01/028_ejercicios.R) | [Video](https://youtu.be/flhbgAA8zwo))
+
+Capítulo 29 - Formatos de R Markdown
+
+- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana32/Cohorte01/Capitulo29.html) | VIDEO)
+
+##### Extra
+Extra 1  - Introducción a SQL y dbplyr
+
+- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana33/Cohorte01/dbplyr.html) | VIDEO)
+
