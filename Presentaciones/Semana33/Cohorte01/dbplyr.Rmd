@@ -121,7 +121,7 @@ animales %>%
 - SQL
 
 ```sql
-SELECT * FROM animales WHERE tamano BETWEEN 0.5 AND 1;
+SELECT * FROM animales WHERE tamano > 0.5 AND tamano < 1;
 ```
 
 ---
@@ -148,7 +148,7 @@ Alternativamente,
 ```sql
 SELECT * FROM animales 
 INNER JOIN habitat ON animales.tipo = habitat.tipo 
-WHERE tamano BETWEEN 0.5 AND 1;
+WHERE tamano > 0.5 AND tamano < 1;
 ```
 
 
@@ -348,12 +348,11 @@ download.file("https://ndownloader.figshare.com/files/10717177",
 download.file("https://ndownloader.figshare.com/files/3299474",
               "data_raw/plots.csv")
 
-library(tidyverse)
-species <- read_csv("data_raw/species.csv")
+species <- readr::read_csv("data_raw/species.csv")
 dim(species)
-surveys <- read_csv("data_raw/surveys.csv")
+surveys <- readr::read_csv("data_raw/surveys.csv")
 dim(surveys)
-plots <- read_csv("data_raw/plots.csv")
+plots <- readr::read_csv("data_raw/plots.csv")
 dim(plots)
 ```
 

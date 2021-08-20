@@ -120,7 +120,7 @@ animales %&gt;%
 - SQL
 
 ```sql
-SELECT * FROM animales WHERE tamano BETWEEN 0.5 AND 1;
+SELECT * FROM animales WHERE tamano &gt; 0.5 AND tamano &lt; 1;
 ```
 
 ---
@@ -147,7 +147,7 @@ Alternativamente,
 ```sql
 SELECT * FROM animales 
 INNER JOIN habitat ON animales.tipo = habitat.tipo 
-WHERE tamano BETWEEN 0.5 AND 1;
+WHERE tamano &gt; 0.5 AND tamano &lt; 1;
 ```
 
 
@@ -569,8 +569,7 @@ download.file("https://ndownloader.figshare.com/files/10717177",
 download.file("https://ndownloader.figshare.com/files/3299474",
               "data_raw/plots.csv")
 
-library(tidyverse)
-species &lt;- read_csv("data_raw/species.csv")
+species &lt;- readr::read_csv("data_raw/species.csv")
 dim(species)
 ```
 
@@ -579,7 +578,7 @@ dim(species)
 ```
 
 ```r
-surveys &lt;- read_csv("data_raw/surveys.csv")
+surveys &lt;- readr::read_csv("data_raw/surveys.csv")
 dim(surveys)
 ```
 
@@ -588,7 +587,7 @@ dim(surveys)
 ```
 
 ```r
-plots &lt;- read_csv("data_raw/plots.csv")
+plots &lt;- readr::read_csv("data_raw/plots.csv")
 dim(plots)
 ```
 
