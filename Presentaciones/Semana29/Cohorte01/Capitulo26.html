@@ -3,8 +3,8 @@
   <head>
     <title>R para Ciencia de Datos</title>
     <meta charset="utf-8" />
-    <meta name="author" content=" (@ / @, etc.)" />
-    <meta name="date" content="2020-12-31" />
+    <meta name="author" content="Roberto Villegas-Diaz (GH: villegar)" />
+    <meta name="date" content="2020-07-13" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -12,199 +12,32 @@
 class: center, middle, inverse, title-slide
 
 # R para Ciencia de Datos
-## Capítulo XY: <descripción>
-### <nombre> (@<twitter> / @<github>, etc.)
-### 2020-12-31
+## Capítulo 26: Comunicar - Introducción
+### Roberto Villegas-Diaz (GH: villegar)
+### 2020-07-13
 
 ---
 
 
 
 
-## Configuración
-Esta plantilla usa el paquete llamado `xaringan` desarrollado por Yihui Xie [https://github.com/yihui/xaringan](https://github.com/yihui/xaringan)
+## Introducción
 
-Para instalarlo:
+&gt; ... no importa lo bien que esté hecho tu análisis si no puedes explicarlo de manera sencilla a otros: es decir, que es necesario comunicar tus resultados.
 
-```r
-install.packages("xaringan")
-```
-
----
-## Título
-### Subtítulo
-#### Sub-subtítulo
-
-Cada diapositiva puede contener texto, código "en línea" como `print`, ó secciones completas de código:
-
-- Sin evaluar
-
-```r
-# Este cálculo requerira de muchas horas, no lo ejecute
-1 + 1
-```
-
-- Evaluado
-
-```r
-1 + 1
-```
-
-```
-## [1] 2
-```
-
-- Evaluado sin mostrar el código (útil para presentar resultados)
-
-```
-## [1] 2
-```
-
----
-
-## Listas
-
-.pull-left[
-#### Ordenadas
-1. Elemento 1
-
-2. Elemento 2
-
-3. Elemento 3
+.center[
+![](https://es.r4ds.hadley.nz/diagrams_w_text_as_path/es/data-science-communicate.svg)
 ]
 
-.pull-right[
-#### No ordenadas
-- Elemento 1
+--
 
-- Elemento 2
-
-- Elemento 3
-]
+&gt; Desafortunadamente, estos capítulos se enfocan principalmente en la parte técnica de la comunicación, y no en los verdaderos grandes problemas de comunicar tus pensamientos a otras personas. 
 
 ---
 
-## Estructura
-- Para crear nuevas diapositvas, solo necesita incluir tres guiones consecutivos  
-
-`---` en el `*.Rmd`. 
-
-- Usando dos guiones `--` en el `*.Rmd` se pueden crear pausas/transiciones:
-
---
-
-#### Sección 1
-
---
-
-#### Sección 2
-
---
-
-#### Sección 3
-
---
-
-- Para agregar notas/pie de página, puede usar 
-```bash
-.footnote[&lt;texto&gt;]
-```
-
-.footnote[
-El CRAN tiene una gran cantidad de paquetes muy útiles.
-]
----
 class: center, inverse, middle
 
-# Esta es una diapositiva de transición
----
-
-### Expresiones matemáticas
-
-Si ha usado `\(\LaTeX\)`, esta notación le resultá muy familiar:
-
-```
-$$E = mc^2$$
-```
-
-`$$E = mc^2$$`
-
-
----
-
-### Imágenes
-La notación para insertar imágenes es la siguiente:
-```
-![&lt;descripcion&gt;](&lt;directorio&gt; ó &lt;URL&gt;)
-```
-
-Por ejemplo:
-```
-![hex-logo](https://es.r4ds.hadley.nz/hex_r4ds-es.png)
-```
-
-Produce; sin embargo, la imagen es muy grande (vea la siguiente diapositiva para ver una solución)
-
-![hex-logo](https://es.r4ds.hadley.nz/hex_r4ds-es.png)
-
----
-
-### Imágenes (2)]
-
-```html
-&lt;img alt="hex-logo" 
-     src="https://es.r4ds.hadley.nz/hex_r4ds-es.png" 
-     width="200px" /&gt;
-```
-
-Produce
-
-&lt;img alt="hex-logo" src="https://es.r4ds.hadley.nz/hex_r4ds-es.png" width="200px" /&gt;
-
-Alternativemente, se puede usar un macro de javascript (el código ya existe en el archivo llamado "macros.js"):
-
-
-```html
-![:escala 25%](&lt;directorio&gt; ó &lt;URL&gt;)
-```
-
----
-
-## Gráficos
-
-
-```r
-plot(rnorm(100))
-```
-
-![](CapituloXY_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
-
----
-
-## Tablas
-
-
-```r
-knitr::kable(head(mtcars))
-```
-
-
-
-|                  |  mpg| cyl| disp|  hp| drat|    wt|  qsec| vs| am| gear| carb|
-|:-----------------|----:|---:|----:|---:|----:|-----:|-----:|--:|--:|----:|----:|
-|Mazda RX4         | 21.0|   6|  160| 110| 3.90| 2.620| 16.46|  0|  1|    4|    4|
-|Mazda RX4 Wag     | 21.0|   6|  160| 110| 3.90| 2.875| 17.02|  0|  1|    4|    4|
-|Datsun 710        | 22.8|   4|  108|  93| 3.85| 2.320| 18.61|  1|  1|    4|    1|
-|Hornet 4 Drive    | 21.4|   6|  258| 110| 3.08| 3.215| 19.44|  1|  0|    3|    1|
-|Hornet Sportabout | 18.7|   8|  360| 175| 3.15| 3.440| 17.02|  0|  0|    3|    2|
-|Valiant           | 18.1|   6|  225| 105| 2.76| 3.460| 20.22|  1|  0|    3|    1|
-
----
-
-## Recursos adicionales
-Más detalles (en inglés): 
-
-https://bookdown.org/yihui/rmarkdown/xaringan.html
+# ¿Preguntas?
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
