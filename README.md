@@ -153,10 +153,10 @@ Capítulo 28 - Comunicar con gráficos
 
 Capítulo 29 - Formatos de R Markdown
 
-- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana32/Cohorte01/Capitulo29.html) | VIDEO)
+- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana32/Cohorte01/Capitulo29.html) | [Video](https://youtu.be/QaAzHGOKDh4))
 
 ##### Extra
-Extra 1  - Introducción a SQL y dbplyr
+Extra 1  - Introducción a SQL y `dbplyr`
 
-- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana33/Cohorte01/dbplyr.html) | VIDEO)
+- Cohorte 1: [Roberto Villegas-Diaz](https://github.com/villegar) ([Diapositivas](https://r4ds.github.io/bookclub-r4ds_es/Presentaciones/Semana33/Cohorte01/dbplyr.html) | [Video](https://youtu.be/OuoQMYHf9AY))
 
